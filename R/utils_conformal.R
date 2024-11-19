@@ -628,8 +628,8 @@ genData.conformal <- function(seed, N,
     A = A[n_idx],
     S = (S1 * A)[n_idx, ] +
       (S0 * (1 - A))[n_idx, ],
-    Y1 = Y1[n_idx],
-    Y0 = Y0[n_idx],
+    # Y1 = Y1[n_idx],
+    # Y0 = Y0[n_idx],
     Y = (Y1 * A)[n_idx] +
       (Y0 * (1 - A))[n_idx]
   )
@@ -640,22 +640,22 @@ genData.conformal <- function(seed, N,
     #           rep(NA, m)),
     S = (S1 * A)[m_idx, ] +
       (S0 * (1 - A))[m_idx, ],
-    Y1 = Y1[m_idx],
-    Y0 = Y0[m_idx],
-    # Y = NA
-    Y = (Y1 * A)[m_idx] +
-      (Y0 * (1 - A))[m_idx]
+    # Y1 = Y1[m_idx],
+    # Y0 = Y0[m_idx],
+    Y = NA
+    # Y = (Y1 * A)[m_idx] +
+    #   (Y0 * (1 - A))[m_idx]
   )
 
   if (outcome.type == "Continuous") {
-    tauITE <- (Y1 - Y0)[c(n_idx, m_idx)]
+    # tauITE <- (Y1 - Y0)[c(n_idx, m_idx)]
 
     df <- cbind(
       rbind(
         cbind(D = 1, df_source),
         cbind(D = 0, df_target)
-      ),
-      tau = tauITE
+      )
+      # tau = tauITE
     )
   }
 

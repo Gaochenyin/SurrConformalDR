@@ -66,10 +66,9 @@ df_rst_wS <- SurrConformalDR(df,
                         alphaCI = 0.05, nested = TRUE)
 ## empirical coverage of the observed outcomes for D = 0 and 1
 ## D = 1: source data, the primary outcomes are observed
-## D = 0: target data, the primary outcomes are missing
 mapply(function(y, lower, upper)lower <= y & upper >= y, 
-       y = df_rst_wS$Y, 
-       lower = df_rst_wS$lower.Y,
-       upper = df_rst_wS$upper.Y) %>% 
-  tapply(df_rst_wS$D, mean)
+       y = (df_rst_wS%>%filter(D==1))$Y, 
+       lower = (df_rst_wS%>%filter(D==1))$lower.Y,
+       upper = (df_rst_wS%>%filter(D==1))$upper.Y) %>% 
+   mean(na.rm = TRUE)
 
