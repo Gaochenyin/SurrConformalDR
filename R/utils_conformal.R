@@ -420,21 +420,6 @@ genData.conformal <- function(seed, N,
   # generate X
   X <- cbind(rnorm(N, mean = 1),
              rnorm(N, mean = 1))
-  # generate group indicator
-  alpha0.R.opt <- rootSolve::multiroot(f = function(alpha0.R){
-    prob_R <- cbind(exp(X%*%c(-1/2, -1/2)),
-                    exp(alpha0.R[1]+X%*%c(-1, -1/2)),
-                    exp(alpha0.R[2]+X%*%c(-1/2, -1)))
-    apply(prob_R/apply(prob_R, 1, sum), 2, mean)[c(1:2)] -
-      c(0.5, 0.3)
-  }, start = c(0, 0),
-  maxiter = 100)$root
-
-  prob_R <- cbind(exp(X%*%c(-1/2, -1/2)),
-                  exp(alpha0.R.opt[1]+X%*%c(-1, -1/2)),
-                  exp(alpha0.R.opt[2]+X%*%c(-1/2, -1)))
-  R <- apply(prob_R, 1, function(x)sample(1:3, size = 1,
-                                          prob = x))
   # with proportion 0.6, 0.3, 0.1
   # generate D
   n_idx <- sample(1:N, size = N^(alpha.r))
@@ -443,10 +428,10 @@ genData.conformal <- function(seed, N,
 
   # generate A
   alpha0.opt <- uniroot(function(alpha0){
-    mean(expit(alpha0 + X%*%c(-1/2, -1/2) + R)) - 1/2
+    mean(expit(alpha0 + X%*%c(-1/2, -1/2))) - 1/2
   }, interval = c(-5, 5))$root
   A <- rbinom(N, size = 1,
-              prob = expit(alpha0.opt + X%*%c(-1/2, -1/2) + R))
+              prob = expit(alpha0.opt + X%*%c(-1/2, -1/2)))
   # A <- rbinom(N, size = 1,
   #             prob = 0.3)
   # generate S
@@ -457,10 +442,10 @@ genData.conformal <- function(seed, N,
   if(outcome.type == 'Continuous'){
     # generate Y (by Gaussian)
     Y0 <- -1 +
-      -1/2 * apply(S0, 1, sum) / 5 + R +
+      -1/2 * apply(S0, 1, sum) / 5 +
       X%*%c(1, 1) + rnorm(N)
     Y1 <- 1 +
-      1/2 * apply(S1, 1, sum) / 5 + R +
+      1/2 * apply(S1, 1, sum) / 5 +
       X%*%c(1, 1) + rnorm(N)
   }
 
@@ -511,7 +496,6 @@ genData.conformal <- function(seed, N,
   # df_source and df_target
   ## setting 2
   df_source <- data.frame(X = X[n_idx, ],
-                          R = R[n_idx],
                           A = A[n_idx],
                           S = (S1 * A)[n_idx, ] +
                             (S0 * (1 - A))[n_idx, ],
@@ -521,7 +505,6 @@ genData.conformal <- function(seed, N,
                             (Y0 * (1 - A))[n_idx])
   df_target <- data.frame(X = X[m_idx, ],
                           A = A[m_idx],
-                          R = R[m_idx],
                           # S = cbind(rep(NA, m),
                           #           rep(NA, m)),
                           S = (S1 * A)[m_idx, ] +
