@@ -32,10 +32,13 @@ devtools::install_github("Gaochenyin/SurrConformalDR")
 ## Example
 
 We illustrate the usage of `SurrConformalDR` using simple synthetic datasets for continuous primary outcomes
-```{r example, echo=TRUE}
+```{r include=FALSE}
 library(SurrConformalDR)
 library(dplyr)
 library(SuperLearner)
+```
+
+```{r example, echo=TRUE, warning=FALSE}
 ## basic example code
 # sample size
 N <- 1e4
@@ -67,7 +70,7 @@ mapply(function(y, lower, upper)lower <= y & upper >= y,
   tapply(df_rst_wS$D, mean)
 ## empirical coverage of the treatment effects for source (D=1) and target (D=0) data
 mapply(function(y, lower, upper)lower <= y & upper >= y, 
-       y = df_rst_wS$Y, 
+       y = df_rst_wS$tau, 
        lower = df_rst_wS$lower.tau,
        upper = df_rst_wS$upper.tau) %>% 
   tapply(df_rst_wS$D, mean)

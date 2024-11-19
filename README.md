@@ -24,25 +24,6 @@ We illustrate the usage of `SurrConformalDR` using simple synthetic
 datasets for continuous primary outcomes
 
 ``` r
-library(SurrConformalDR)
-library(dplyr)
-#> 
-#> 载入程序包：'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
-library(SuperLearner)
-#> 载入需要的程序包：nnls
-#> 载入需要的程序包：gam
-#> 载入需要的程序包：splines
-#> 载入需要的程序包：foreach
-#> Loaded gam 1.22-5
-#> Super Learner
-#> Version: 2.0-29
-#> Package created on 2024-02-06
 ## basic example code
 # sample size
 N <- 1e4
@@ -54,20 +35,20 @@ df <- genData.conformal(seed = seed, N = N,
                         outcome.type = 'Continuous',
                         beta.S = 10)
 head(df)
-#>   D        X.1         X.2 R A         S.1         S.2        Y1       Y0
-#> 1 1 -0.1689732  0.25991086 2 1 -10.3633473  -0.2672595 0.8087446 1.567940
-#> 2 1  1.3985697 -1.21133275 3 1   3.0322537 -11.1691124 1.6449347 3.008854
-#> 3 1  1.2815862  1.72347697 3 1  -0.3584979   4.3339493 7.4991193 3.700602
-#> 4 1 -1.5750551  0.63347062 3 1   3.6668240   7.6021385 3.4496082 3.188919
-#> 5 1  1.0931254 -0.06084825 1 1  12.2669631  -1.0121564 3.8282332 1.547041
-#> 6 1  1.6886319  0.50601804 1 0  13.4782558  -0.3372688 4.9692179 1.624507
-#>           Y        tau
-#> 1 0.8087446 -0.7591952
-#> 2 1.6449347 -1.3639194
-#> 3 7.4991193  3.7985178
-#> 4 3.4496082  0.2606890
-#> 5 3.8282332  2.2811922
-#> 6 1.6245073  3.3447106
+#>   D         X.1        X.2 R A         S.1         S.2       Y1        Y0
+#> 1 1  1.08604291  0.1810536 2 0  -2.0698785  -0.4934236 3.451211  4.015352
+#> 2 1  0.02162517  2.2040962 2 0   3.4451466 -21.1798290 5.450040  4.814120
+#> 3 1  1.75959937 -0.2161720 1 1 -10.7370270   3.6346361 1.888321  1.306357
+#> 4 1  1.59711872 -0.1018285 2 1  -0.7811347   8.5619841 5.022883  3.409152
+#> 5 1 -0.92083938  2.3525706 2 1  -2.3587704  -0.2098783 3.818078  4.315251
+#> 6 1  0.16092298 -1.1643267 3 1   7.9846306  -8.2810896 3.969728 -1.078631
+#>          Y        tau
+#> 1 4.015352 -0.5641415
+#> 2 4.814120  0.6359202
+#> 3 1.888321  0.5819636
+#> 4 5.022883  1.6137311
+#> 5 3.818078 -0.4971737
+#> 6 3.969728  5.0483588
 ```
 
 ``` r
@@ -429,22 +410,6 @@ df_rst_wS <- SurrConformalDR(df,
 #> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
 #> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
 #> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
 ## empirical coverage of the observed outcomes for source (D=1) and target (D=0) data
 mapply(function(y, lower, upper)lower <= y & upper >= y, 
        y = df_rst_wS$Y, 
@@ -452,13 +417,13 @@ mapply(function(y, lower, upper)lower <= y & upper >= y,
        upper = df_rst_wS$upper.Y) %>% 
   tapply(df_rst_wS$D, mean)
 #>         0         1 
-#> 0.9411765 0.9523810
+#> 0.9576082 0.9536680
 ## empirical coverage of the treatment effects for source (D=1) and target (D=0) data
 mapply(function(y, lower, upper)lower <= y & upper >= y, 
-       y = df_rst_wS$Y, 
+       y = df_rst_wS$tau, 
        lower = df_rst_wS$lower.tau,
        upper = df_rst_wS$upper.tau) %>% 
   tapply(df_rst_wS$D, mean)
 #>         0         1 
-#> 0.7894028 0.8241758
+#> 0.9607318 0.9575290
 ```
