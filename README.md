@@ -6,7 +6,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of SurrConformalDR is to …
+An R package for Surrogate-assisted Conformal Inference for Efficient
+Individual Causal Effect Estimation
 
 ## Installation
 
@@ -35,20 +36,20 @@ df <- genData.conformal(seed = seed, N = N,
                         outcome.type = 'Continuous',
                         beta.S = 10)
 head(df)
-#>   D       X.1        X.2 R A        S.1        S.2       Y1        Y0         Y
-#> 1 1 0.8921895 0.08607659 1 0 -0.9766149 -3.7873795 3.757858 0.4152928 0.4152928
-#> 2 1 2.2078099 2.02550138 1 0  9.0809008 -2.1615746 3.001961 4.0553883 4.0553883
-#> 3 1 0.4400919 0.96957213 3 1  4.7234885 11.3668155 6.868767 3.7970159 6.8687670
-#> 4 1 0.1758621 0.04126497 1 1 -1.1424120  0.6458969 4.464843 0.3656095 4.4648427
-#> 5 1 1.1787492 0.62537313 1 1 -6.1469572 -4.7855041 2.542721 1.0456875 2.5427209
-#> 6 1 1.1490216 1.19632238 2 0  4.3048266 -7.9343330 3.752202 3.1312889 3.1312889
-#>          tau
-#> 1  3.3425655
-#> 2 -1.0534273
-#> 3  3.0717511
-#> 4  4.0992332
-#> 5  1.4970334
-#> 6  0.6209132
+#>   D        X.1        X.2 R A        S.1       S.2       Y1           Y0
+#> 1 1 -0.6144153  2.0566804 1 0   1.393544  4.583308 3.011056 -0.007931304
+#> 2 1  1.2916534  1.3247535 1 0  -1.265404 -6.660800 2.639487  4.059997206
+#> 3 1 -0.6099622  0.3811491 3 1   8.337192  2.479153 4.533423  3.481307107
+#> 4 1  1.0642303 -0.7863794 1 1  -3.974042 -2.875011 1.474831 -0.535595404
+#> 5 1  2.2464721  0.4266237 1 0   2.749122 12.694962 5.320752  1.495874211
+#> 6 1  0.7198231  0.5279439 3 1 -11.207589 13.443301 5.670473  5.930293765
+#>              Y        tau
+#> 1 -0.007931304  3.0189868
+#> 2  4.059997206 -1.4205104
+#> 3  4.533423084  1.0521160
+#> 4  1.474830533  2.0104259
+#> 5  1.495874211  3.8248776
+#> 6  5.670472607 -0.2598212
 ```
 
 ``` r
@@ -62,20 +63,22 @@ df_rst_wS <- SurrConformalDR(df,
                         SL.library = SL.library,
                         outcome.type = 'Continuous',
                         alphaCI = 0.05, nested = TRUE)
-## empirical coverage of the observed outcomes for source (D=1) and target (D=0) data
+## empirical coverage of the observed outcomes 
+## for source (D=1) and target (D=0) data
 mapply(function(y, lower, upper)lower <= y & upper >= y, 
        y = df_rst_wS$Y, 
        lower = df_rst_wS$lower.Y,
        upper = df_rst_wS$upper.Y) %>% 
   tapply(df_rst_wS$D, mean)
 #>         0         1 
-#> 0.9414115 0.9473684
-## empirical coverage of the treatment effects for source (D=1) and target (D=0) data
+#> 0.9381122 0.9527559
+## empirical coverage of the treatment effects 
+## for source (D=1) and target (D=0) data
 mapply(function(y, lower, upper)lower <= y & upper >= y, 
        y = df_rst_wS$tau, 
        lower = df_rst_wS$lower.tau,
        upper = df_rst_wS$upper.tau) %>% 
   tapply(df_rst_wS$D, mean)
 #>         0         1 
-#> 0.9378606 0.9230769
+#> 0.9341051 0.9606299
 ```

@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of SurrConformalDR is to ...
+An R package for Surrogate-assisted Conformal Inference for Efficient Individual Causal Effect Estimation
 
 ## Installation
 
@@ -63,13 +63,15 @@ df_rst_wS <- SurrConformalDR(df,
                         SL.library = SL.library,
                         outcome.type = 'Continuous',
                         alphaCI = 0.05, nested = TRUE)
-## empirical coverage of the observed outcomes for source (D=1) and target (D=0) data
+## empirical coverage of the observed outcomes 
+## for source (D=1) and target (D=0) data
 mapply(function(y, lower, upper)lower <= y & upper >= y, 
        y = df_rst_wS$Y, 
        lower = df_rst_wS$lower.Y,
        upper = df_rst_wS$upper.Y) %>% 
   tapply(df_rst_wS$D, mean)
-## empirical coverage of the treatment effects for source (D=1) and target (D=0) data
+## empirical coverage of the treatment effects 
+## for source (D=1) and target (D=0) data
 mapply(function(y, lower, upper)lower <= y & upper >= y, 
        y = df_rst_wS$tau, 
        lower = df_rst_wS$lower.tau,
