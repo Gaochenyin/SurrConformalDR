@@ -1,10 +1,8 @@
 Package: SurrConformalDR
 Title: Surrogate-assisted Conformal Inference for Efficient Individual Causal Effect Estimation
 Version: 1.0
-Authors@R: 
-    person("Chenyin", "Gao", , "cgao@hsph.harvard.edu", role = c("aut", "cre")),
-    person("Peter", "Gilbert", , "pgilbert@fredhutch.org", role = c("aut")),
-    person("Larry", "Han", , "larryhan@g.harvard.edu", role = c("aut"))
+Author: Chenyin Gao [aut, cre], Peter Gilbert [ctb], Larry Han [ctb]
+Maintainer: Chenyin Gao <cgao@hsph.harvard.edu>
 Description: Implementation of Surrogate-assisted Conformal Inference for Efficient Individual Causal Effect Estimation
 License: MIT + file LICENSE
 Encoding: UTF-8
