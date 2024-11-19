@@ -228,7 +228,8 @@ eif_theta <- function(theta,
 ## continuous outcome only
 conformalIntSplitD0 <- function(df.D1,
                                 df.D0,
-                                wS = TRUE){
+                                wS = TRUE,
+                                SL.library = 'SL.glm'){
 
   # split for modeling
   foldsCI.idx <- caret::createFolds(1:nrow(df.D1), k = 2)

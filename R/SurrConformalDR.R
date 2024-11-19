@@ -1,4 +1,5 @@
-#' Title
+#' Surrogate-assisted Conformal Inference for Efficient Individual Causal Effect
+#' Estimation
 #'
 #' @param df data frame contains
 #' * X.1, X.2, ...: covariates
@@ -10,6 +11,9 @@
 #' @param train.idx index of `df` for model training
 #' @param eval.idx index of `df` for evaluating conformal inference
 #' @param outcome.type the type of primary outcomes.
+#' @param SL.library Either a character vector of prediction algorithms
+#' or a list containing character vectors. See details in [SuperLearner::SuperLearner()].
+#' The default is `SL.glm`
 #' @param alphaCI confidence level. The default is 0.05.
 #' @param nested Logical. Should nested conformal inference be performed
 #' when the primary outcomes are missing. Used only when \code{outcome.type = "Continuous"}.
@@ -29,6 +33,7 @@
 SurrConformalDR <- function(df,
                             train.idx, eval.idx,
                             outcome.type = c('Continuous', 'Categorical'), # Categorical
+                            SL.library = c('SL.glm'),
                             alphaCI = 0.05,
                             nested = TRUE
 ){
@@ -399,6 +404,7 @@ SurrConformalDR <- function(df,
                                             lower = lower.tau.wS,
                                             upper = upper.tau.wS)[df.eval$D==1, ],
                                       df.eval[df.eval$D==0, ],
+                                      SL.library = SL.library,
                                       wS = TRUE)
       df.eval$lower.tau.wS[df.eval$D==0] <- CI.D0.wS$lower
       df.eval$upper.tau.wS[df.eval$D==0] <- CI.D0.wS$upper

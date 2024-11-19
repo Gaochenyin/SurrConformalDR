@@ -2,13 +2,15 @@
 % Please edit documentation in R/SurrConformalDR.R
 \name{SurrConformalDR}
 \alias{SurrConformalDR}
-\title{Title}
+\title{Surrogate-assisted Conformal Inference for Efficient Individual Causal Effect
+Estimation}
 \usage{
 SurrConformalDR(
   df,
   train.idx,
   eval.idx,
   outcome.type = c("Continuous", "Categorical"),
+  SL.library = c("SL.glm"),
   alphaCI = 0.05,
   nested = TRUE
 )
@@ -29,6 +31,9 @@ with 1 being the source data and 0 being the target data
 \item{eval.idx}{index of \code{df} for evaluating conformal inference}
 
 \item{outcome.type}{the type of primary outcomes.}
+
+\item{SL.library}{Either a character vector of prediction algorithms
+or a list containing character vectors. See details in \code{\link[SuperLearner:SuperLearner]{SuperLearner::SuperLearner()}}}
 
 \item{alphaCI}{confidence level. The default is 0.05.}
 
@@ -52,5 +57,6 @@ with index \code{eval.idx}
 }
 }
 \description{
-Title
+Surrogate-assisted Conformal Inference for Efficient Individual Causal Effect
+Estimation
 }
