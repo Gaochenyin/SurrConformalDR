@@ -1,21 +1,37 @@
 #' Title
 #'
-#' @param df
-#' @param train.idx
-#' @param eval.idx
-#' @param outcome.type
-#' @param alphaCI
-#' @param nested
+#' @param df data frame contains
+#' * X.1, X.2, ...: covariates
+#' * D: data origin indicator, a binary vector
+#' with 1 being the source data and 0 being the target data
+#' * A treatment indicator, a binary vector
+#' * S.1, S.2, ...: surrogates
+#' * Y: observed primary outcomes
+#' @param train.idx index of `df` for model training
+#' @param eval.idx index of `df` for evaluating conformal inference
+#' @param outcome.type the type of primary outcomes.
+#' @param alphaCI confidence level. The default is 0.05.
+#' @param nested Logical. Should nested conformal inference be performed
+#' when the primary outcomes are missing. Used only when \code{outcome.type = "Continuous"}.
+#' The default is TRUE.
 #'
 #' @return
+#' when \code{outcome.type = "Continuous"}:
+#' * lower.Y, upper Y: prediction regions for the observed outcomes
+#' with index `eval.idx`
+#' * lower.tau, upper.tau: prediction regions for the individualized treatment effects
+#' with index `eval.idx`
+#'
+#' when \code{outcome.type = "Categorical"}:
+#' * sets_observed: prediction sets for the observed outcomes
+#' with index `eval.idx`
 #' @export
 SurrConformalDR <- function(df,
                             train.idx, eval.idx,
                             outcome.type = c('Continuous', 'Categorical'), # Categorical
                             alphaCI = 0.05,
-                            nested = TRUE # for Continuous outcome only
+                            nested = TRUE
 ){
-  # outcome can be Continuous or Categorical
   # begin estimation
   N <- nrow(df)
   outcome.type <- match.arg(outcome.type)
@@ -371,11 +387,11 @@ SurrConformalDR <- function(df,
 
     # organize the results
     df.eval <- cbind(df.eval,
-                     lower.Y.wS = lower.Y.wS,
-                     upper.Y.wS = upper.Y.wS,
+                     lower.Y = lower.Y.wS,
+                     upper.Y = upper.Y.wS,
 
-                     lower.tau.wS = lower.tau.wS,
-                     upper.tau.wS = upper.tau.wS
+                     lower.tau = lower.tau.wS,
+                     upper.tau = upper.tau.wS
                      )
     if(nested){
       # nested conformal inference for the target data where primary outcome is missing
@@ -405,8 +421,8 @@ SurrConformalDR <- function(df,
     # organize the output for the evaluation sets
     ## for the observed one
     ## with surrogates
-    df.eval$sets_observed.wS <- Y0predSet.A0wS
-    df.eval$sets_observed.wS[df.eval$A==1] <-
+    df.eval$sets_observed <- Y0predSet.A0wS
+    df.eval$sets_observed[df.eval$A==1] <-
       Y1predSet.A1wS[df.eval$A==1]
   }
 
@@ -414,3 +430,4 @@ SurrConformalDR <- function(df,
   return(df.eval %>% dplyr::select(-R.wS))
 
 }
+

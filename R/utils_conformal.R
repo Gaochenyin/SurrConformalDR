@@ -408,6 +408,9 @@ conformalIntSplitD0 <- function(df.D1,
   CI.D0
 }
 
+#' Generate data for ReadMe example
+#'
+#' @export
 genData.conformal <- function(seed, N,
                               outcome.type = c('Continuous', 'Categorical'),
                               beta.S = 1,
@@ -543,4 +546,8 @@ genData.conformal <- function(seed, N,
 
   return(df)
 
+}
+
+expit <- function(x){
+  exp(x)/(1 + exp(x))
 }
