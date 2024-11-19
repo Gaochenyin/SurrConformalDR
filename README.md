@@ -35,20 +35,20 @@ df <- genData.conformal(seed = seed, N = N,
                         outcome.type = 'Continuous',
                         beta.S = 10)
 head(df)
-#>   D         X.1        X.2 R A         S.1         S.2       Y1        Y0
-#> 1 1  1.08604291  0.1810536 2 0  -2.0698785  -0.4934236 3.451211  4.015352
-#> 2 1  0.02162517  2.2040962 2 0   3.4451466 -21.1798290 5.450040  4.814120
-#> 3 1  1.75959937 -0.2161720 1 1 -10.7370270   3.6346361 1.888321  1.306357
-#> 4 1  1.59711872 -0.1018285 2 1  -0.7811347   8.5619841 5.022883  3.409152
-#> 5 1 -0.92083938  2.3525706 2 1  -2.3587704  -0.2098783 3.818078  4.315251
-#> 6 1  0.16092298 -1.1643267 3 1   7.9846306  -8.2810896 3.969728 -1.078631
-#>          Y        tau
-#> 1 4.015352 -0.5641415
-#> 2 4.814120  0.6359202
-#> 3 1.888321  0.5819636
-#> 4 5.022883  1.6137311
-#> 5 3.818078 -0.4971737
-#> 6 3.969728  5.0483588
+#>   D       X.1        X.2 R A        S.1        S.2       Y1        Y0         Y
+#> 1 1 0.8921895 0.08607659 1 0 -0.9766149 -3.7873795 3.757858 0.4152928 0.4152928
+#> 2 1 2.2078099 2.02550138 1 0  9.0809008 -2.1615746 3.001961 4.0553883 4.0553883
+#> 3 1 0.4400919 0.96957213 3 1  4.7234885 11.3668155 6.868767 3.7970159 6.8687670
+#> 4 1 0.1758621 0.04126497 1 1 -1.1424120  0.6458969 4.464843 0.3656095 4.4648427
+#> 5 1 1.1787492 0.62537313 1 1 -6.1469572 -4.7855041 2.542721 1.0456875 2.5427209
+#> 6 1 1.1490216 1.19632238 2 0  4.3048266 -7.9343330 3.752202 3.1312889 3.1312889
+#>          tau
+#> 1  3.3425655
+#> 2 -1.0534273
+#> 3  3.0717511
+#> 4  4.0992332
+#> 5  1.4970334
+#> 6  0.6209132
 ```
 
 ``` r
@@ -62,354 +62,6 @@ df_rst_wS <- SurrConformalDR(df,
                         SL.library = SL.library,
                         outcome.type = 'Continuous',
                         alphaCI = 0.05, nested = TRUE)
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
-#> Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type == :
-#> prediction from rank-deficient fit; attr(*, "non-estim") has doubtful cases
 ## empirical coverage of the observed outcomes for source (D=1) and target (D=0) data
 mapply(function(y, lower, upper)lower <= y & upper >= y, 
        y = df_rst_wS$Y, 
@@ -417,7 +69,7 @@ mapply(function(y, lower, upper)lower <= y & upper >= y,
        upper = df_rst_wS$upper.Y) %>% 
   tapply(df_rst_wS$D, mean)
 #>         0         1 
-#> 0.9576082 0.9536680
+#> 0.9414115 0.9473684
 ## empirical coverage of the treatment effects for source (D=1) and target (D=0) data
 mapply(function(y, lower, upper)lower <= y & upper >= y, 
        y = df_rst_wS$tau, 
@@ -425,5 +77,5 @@ mapply(function(y, lower, upper)lower <= y & upper >= y,
        upper = df_rst_wS$upper.tau) %>% 
   tapply(df_rst_wS$D, mean)
 #>         0         1 
-#> 0.9607318 0.9575290
+#> 0.9378606 0.9230769
 ```

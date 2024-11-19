@@ -51,7 +51,8 @@ df <- genData.conformal(seed = seed, N = N,
                         beta.S = 10)
 head(df)
 ```
-```{r conformalInference, echo=TRUE}
+
+```{r conformalInference, echo=TRUE, warning=FALSE}
 # create two folds (75% for training and 25% for evaluation)
 train.idx <- caret::createDataPartition(1:nrow(df), p = 0.75)$Resample1
 eval.idx <- setdiff(1:nrow(df), train.idx)
