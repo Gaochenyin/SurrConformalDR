@@ -1,5 +1,5 @@
 ---
-title: "demo_SCIENCE"
+title: "Demo"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{SurrConformalDR}
@@ -20,7 +20,7 @@ library(dplyr)
 library(SuperLearner)
 ```
 
-# `SurrConformalDR`: inference of individual treatment effects for continuous outcomes
+## inference of individual treatment effects for continuous outcomes
 ```{r conformalITE_continuous, echo=TRUE, warning=FALSE}
 # random seed
 seed <- 1
@@ -41,7 +41,7 @@ df_rst_wS <- SurrConformalDR(df,
                         SL.library = SL.library,
                         outcome.type = 'Continuous',
                         alphaCI = 0.05, nested = TRUE)
-## empirical coverage of the individual treatment effects
+# empirical coverage of the individual treatment effects
 mapply(function(y, lower, upper)lower <= y & upper >= y, 
        y = (df_rst_wS%>%filter(D==1))$tau, 
        lower = (df_rst_wS%>%filter(D==1))$lower.tau,
@@ -49,7 +49,7 @@ mapply(function(y, lower, upper)lower <= y & upper >= y,
    mean(na.rm = TRUE)
 ```
 
-# `SurrConformalDR`: inference of prediction sets for categorical outcomes
+## inference of prediction sets for categorical outcomes
 
 ```{r conformalITE_categorical, echo=TRUE, warning=FALSE}
 # sample size
@@ -69,10 +69,10 @@ df_rst_wS <- SurrConformalDR(df,
                         SL.library = SL.library,
                         outcome.type = 'Categorical',
                         alphaCI = 0.05)
-## empirical coverage of the prediction sets
+# empirical coverage of the prediction sets
 mapply(function(y, set)!is.na(match(y, set)), 
-       y = df_rst_wS$Y, 
-       set = df_rst_wS$sets_observed) %>% 
+       y = (df_rst_wS%>%filter(D==1))$Y, 
+       set = (df_rst_wS%>%filter(D==1))$sets_observed) %>% 
   mean()
 ```
 

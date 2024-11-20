@@ -22,16 +22,17 @@ An R package for Surrogate-assisted Conformal Inference for Efficient Individual
 
 ## Installation
 
-You can install the development version of SurrConformalDR from [GitHub](https://github.com/) with:
+To access the vignette, you can install the development version of SurrConformalDR from [GitHub](https://github.com/) with:
 
 ```{r eval=FALSE}
 install.packages("devtools")
-devtools::install_github("Gaochenyin/SurrConformalDR")
+devtools::install_github("Gaochenyin/SurrConformalDR",
+                         build_vignettes = TRUE)
 ```
 
 ## Example
 
-We illustrate the usage of `SurrConformalDR` using simple synthetic datasets for continuous primary outcomes
+We illustrate the usage of `SurrConformalDR` using simple synthetic datasets for continuous primary outcomes. For details please read the vignette (`vignette("demo_SCIENCE", package = "SurrConformalDR")`)
 ```{r include=FALSE}
 library(SurrConformalDR)
 library(dplyr)

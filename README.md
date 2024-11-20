@@ -11,18 +11,20 @@ Individual Causal Effect Estimation
 
 ## Installation
 
-You can install the development version of SurrConformalDR from
-[GitHub](https://github.com/) with:
+To access the vignette, you can install the development version of
+SurrConformalDR from [GitHub](https://github.com/) with:
 
 ``` r
 install.packages("devtools")
-devtools::install_github("Gaochenyin/SurrConformalDR")
+devtools::install_github("Gaochenyin/SurrConformalDR",
+                         build_vignettes = TRUE)
 ```
 
 ## Example
 
 We illustrate the usage of `SurrConformalDR` using simple synthetic
-datasets for continuous primary outcomes
+datasets for continuous primary outcomes. For details please read the
+vignette (`vignette("demo_SCIENCE", package = "SurrConformalDR")`)
 
 ``` r
 ## basic example code
@@ -36,13 +38,13 @@ df <- genData.conformal(seed = seed, N = N,
                         outcome.type = 'Continuous',
                         beta.S = 10)
 head(df)
-#>   D       X.1       X.2 A        S.1        S.2         Y
-#> 1 1  2.674478 0.9233647 0 -10.546764 -10.531640 6.1857457
-#> 2 1  3.053843 1.8836734 0 -13.196210   6.511411 4.6297624
-#> 3 1  1.475156 1.1085576 1  -3.711756  -7.967273 1.6325787
-#> 4 1 -0.841142 1.5948930 1   4.516589  -2.375909 0.9543361
-#> 5 1  1.115709 1.2595377 1   6.123498 -13.431442 2.7116487
-#> 6 1  2.241426 0.2469364 1   7.659264  -5.440272 3.0583206
+#>   D        X.1        X.2 A       S.1        S.2         Y       tau
+#> 1 1  0.4507388  1.9623630 0 -2.826700  -5.230578  3.144383 0.7512173
+#> 2 1 -0.5297559  1.1580891 1 -2.225087   6.768717  2.805374 3.5948053
+#> 3 1  1.4327919  0.5554295 0 -8.079096   3.889108  2.770920 3.5558811
+#> 4 1  1.5135549  0.1923019 0  1.569142  -8.277306  1.378160 0.9845718
+#> 5 1  1.7926916  0.8053363 0 10.126140 -19.128686  1.772369 0.6799895
+#> 6 1  0.7306572 -0.2206441 0  5.431296   6.301006 -1.165080 2.5319028
 ```
 
 ``` r
