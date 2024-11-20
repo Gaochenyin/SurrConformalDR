@@ -182,7 +182,7 @@ SurrConformalDR <- function(df,
 
   if (outcome.type == "Categorical") {
     # wS
-    objY1.XS <- multinom(
+    objY1.XS <- nnet::multinom(
       paste("Y~", paste(grep("^([XS])",
         colnames(df),
         value = TRUE
@@ -198,7 +198,7 @@ SurrConformalDR <- function(df,
       type = "probs"
     )
 
-    objY0.XS <- multinom(
+    objY0.XS <- nnet::multinom(
       paste("Y~", paste(grep("^([XS])",
         colnames(df),
         value = TRUE

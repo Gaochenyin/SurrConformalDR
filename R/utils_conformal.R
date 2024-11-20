@@ -648,14 +648,14 @@ genData.conformal <- function(seed, N,
   )
 
   if (outcome.type == "Continuous") {
-    # tauITE <- (Y1 - Y0)[c(n_idx, m_idx)]
+    tauITE <- (Y1 - Y0)[c(n_idx, m_idx)]
 
     df <- cbind(
       rbind(
         cbind(D = 1, df_source),
         cbind(D = 0, df_target)
-      )
-      # tau = tauITE
+      ),
+      tau = tauITE
     )
   }
 
