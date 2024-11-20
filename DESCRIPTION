@@ -12,3 +12,7 @@ LazyData: yes
 Imports: 
     dplyr,
     SuperLearner
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
