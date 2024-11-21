@@ -33,6 +33,7 @@ df <- genData.conformal(seed = seed, N = N,
                         outcome.type = 'Continuous',
                         beta.S = 50)
 # create two folds (75% for training and 25% for evaluation)
+set.seed(seed)
 train.idx <- caret::createDataPartition(1:nrow(df), p = 0.75)$Resample1
 eval.idx <- setdiff(1:nrow(df), train.idx)
 # SCIENCE framework
@@ -42,6 +43,7 @@ df_rst_wS <- SurrConformalDR(df,
                         SL.library = SL.library,
                         outcome.type = 'Continuous',
                         alphaCI = 0.05, nested = TRUE)
+# no surrogate-assisted conformal inference framework
 df_rst_woS <- NoSurrConformalDR(df, 
                         train.idx = train.idx, 
                         eval.idx = eval.idx,
@@ -49,7 +51,7 @@ df_rst_woS <- NoSurrConformalDR(df,
                         outcome.type = 'Continuous',
                         alphaCI = 0.05, nested = TRUE)
 ```
-```{r echo=FALSE}
+```{r echo=FALSE, paged.print=TRUE}
 # empirical coverage and average width of prediction intervals 
 # for the individual treatment effects
 kableExtra::kable(data.frame(Coverage = c('Surr' = mapply(function(y, lower, upper)lower <= y & upper >= y, 

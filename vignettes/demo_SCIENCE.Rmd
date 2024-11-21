@@ -52,7 +52,7 @@ mapply(function(y, lower, upper)lower <= y & upper >= y,
 
 ## inference of prediction sets for categorical outcomes
 
-```{r conformalITE_categorical, echo=TRUE, warning=FALSE}
+```{r conformalITE_categorical, echo=TRUE, warning=FALSE, paged.print=TRUE}
 # sample size
 N <- 1e4
 # library for SuperLearner
