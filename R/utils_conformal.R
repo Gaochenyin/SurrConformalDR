@@ -1,18 +1,18 @@
 ## localized DML
 initialize.theta <- function(df.train1,
-                             psA.obj,
+                             psA.obj, psD.obj,
                              target.A = 1,
                              alphaCI = 0.05) {
   # evaluate the model on train1
   e.X <- c(predict(psA.obj, newdata = df.train1)$pred)
-  # r.1X <- c(predict(psD.obj, newdata = data.frame(A = 1,
-  #                                                 df.train1[, grep('([X])',
-  #                                                            colnames(df),
-  #                                                            value = TRUE)]))$pred)
-  # r.0X <- c(predict(psD.obj, newdata = data.frame(A = 0,
-  #                                                 df.train1[, grep('([X])',
-  #                                                            colnames(df.eval1),
-  #                                                            value = TRUE)]))$pred)
+  r.1X <- c(predict(psD.obj, newdata = data.frame(A = 1,
+                                                  df.train1[, grep('([X])',
+                                                             colnames(df.train1),
+                                                             value = TRUE)]))$pred)
+  r.0X <- c(predict(psD.obj, newdata = data.frame(A = 0,
+                                                  df.train1[, grep('([X])',
+                                                             colnames(df.train1),
+                                                             value = TRUE)]))$pred)
   pi.X <- (1 - e.X) / e.X
   ## A == 1
   if (target.A == 1) {
@@ -26,17 +26,17 @@ initialize.theta <- function(df.train1,
           psi[df.train1$D == 1] <- psi[df.train1$D == 1] +
             df.train1$A[df.train1$D == 1] * pi.X[df.train1$D == 1] *
               r.0X[df.train1$D == 1] / r.1X[df.train1$D == 1] *
-              ((df.train1$R.wS[df.train1$D == 1] <= theta))
+              ((pull(df.train1, starts_with('R.'))[df.train1$D == 1] <= theta))
           sum(psi, na.rm = TRUE)
         },
-        interval = quantile(df.train1$R.wS, c(0.01, 0.99),
+        interval = quantile(pull(df.train1, starts_with('R.')), c(0.01, 0.99),
           na.rm = TRUE
         ),
         extendInt = "yes",
         maxiter = 100
       )$root,
       error = function(e) {
-        quantile(df.train1$R.wS[df.train1$D == 1],
+        quantile(pull(df.train1, starts_with('R.'))[df.train1$D == 1],
           1 - alphaCI,
           na.rm = TRUE
         )
@@ -54,17 +54,17 @@ initialize.theta <- function(df.train1,
           psi[df.train1$D == 1] <- psi[df.train1$D == 1] +
             (1 - df.train1$A)[df.train1$D == 1] / pi.X[df.train1$D == 1] *
               r.1X[df.train1$D == 1] / r.0X[df.train1$D == 1] *
-              ((df.train1$R.wS[df.train1$D == 1] <= theta))
+              ((pull(df.train1, starts_with('R.'))[df.train1$D == 1] <= theta))
           sum(psi, na.rm = TRUE)
         },
-        interval = quantile(df.train1$R.wS, c(0.01, 0.99),
+        interval = quantile(pull(df.train1, starts_with('R.')), c(0.01, 0.99),
           na.rm = TRUE
         ),
         extendInt = "yes",
         maxiter = 100
       )$root,
       error = function(e) {
-        quantile(df.train1$R.wS[df.train1$D == 1],
+        quantile(pull(df.train1, starts_with('R.'))[df.train1$D == 1],
           1 - alphaCI,
           na.rm = TRUE
         )

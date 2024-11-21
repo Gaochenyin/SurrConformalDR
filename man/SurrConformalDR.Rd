@@ -33,7 +33,8 @@ with 1 being the source data and 0 being the target data
 \item{outcome.type}{the type of primary outcomes.}
 
 \item{SL.library}{Either a character vector of prediction algorithms
-or a list containing character vectors. See details in \code{\link[SuperLearner:SuperLearner]{SuperLearner::SuperLearner()}}}
+or a list containing character vectors. See details in \code{\link[SuperLearner:SuperLearner]{SuperLearner::SuperLearner()}}.
+The default is \code{SL.glm}}
 
 \item{alphaCI}{confidence level. The default is 0.05.}
 

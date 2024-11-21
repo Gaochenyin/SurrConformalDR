@@ -320,12 +320,10 @@ SurrConformalDR <- function(df,
   df.train2 <- df.train[train2.idx, ]
 
   # initial estimate for theta by IPW (with first split data I_11)
-  thetaA1.init <- initialize.theta(df.train1, psA.obj,
-    target.A = 1, alphaCI = alphaCI
-  )
-  thetaA0.init <- initialize.theta(df.train1, psA.obj,
-    target.A = 0, alphaCI = alphaCI
-  )
+  thetaA1.init <- initialize.theta(df.train1, psA.obj, psD.obj,
+                                   target.A = 1, alphaCI = alphaCI)
+  thetaA0.init <- initialize.theta(df.train1, psA.obj, psD.obj,
+                                   target.A = 0, alphaCI = alphaCI)
   # fit the model on the second split data I_12
   ## model training with S
   model.obj.wS$mA1.obj <- SuperLearner(

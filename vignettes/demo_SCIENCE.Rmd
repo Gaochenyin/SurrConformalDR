@@ -1,8 +1,8 @@
 ---
-title: "Demo"
+title: "Demo 1"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{SurrConformalDR}
+  %\VignetteIndexEntry{Demo for ITE and Categorical Outcomes}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

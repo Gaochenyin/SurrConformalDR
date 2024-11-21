@@ -1,0 +1,75 @@
+---
+title: "Demo 2"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Demo for No Surrogate-assisted Conformal}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r include=FALSE}
+library(SurrConformalDR)
+library(dplyr)
+library(SuperLearner)
+```
+
+## Compare the prediction intervals of individual treatment effects for continuous outcomes with/without surrogates
+
+```{r conformalITE_continuous, echo=TRUE, warning=FALSE}
+# random seed
+seed <- 1
+# sample size
+N <- 1e4
+# library for SuperLearner
+SL.library <- c('SL.glm')
+df <- genData.conformal(seed = seed, N = N, 
+                        outcome.type = 'Continuous',
+                        beta.S = 50)
+# create two folds (75% for training and 25% for evaluation)
+train.idx <- caret::createDataPartition(1:nrow(df), p = 0.75)$Resample1
+eval.idx <- setdiff(1:nrow(df), train.idx)
+# SCIENCE framework
+df_rst_wS <- SurrConformalDR(df, 
+                        train.idx = train.idx, 
+                        eval.idx = eval.idx,
+                        SL.library = SL.library,
+                        outcome.type = 'Continuous',
+                        alphaCI = 0.05, nested = TRUE)
+df_rst_woS <- NoSurrConformalDR(df, 
+                        train.idx = train.idx, 
+                        eval.idx = eval.idx,
+                        SL.library = SL.library,
+                        outcome.type = 'Continuous',
+                        alphaCI = 0.05, nested = TRUE)
+```
+```{r echo=FALSE}
+# empirical coverage and average width of prediction intervals 
+# for the individual treatment effects
+kableExtra::kable(data.frame(Coverage = c('Surr' = mapply(function(y, lower, upper)lower <= y & upper >= y, 
+       y = (df_rst_wS%>%filter(D==1))$tau, 
+       lower = (df_rst_wS%>%filter(D==1))$lower.tau,
+       upper = (df_rst_wS%>%filter(D==1))$upper.tau) %>% 
+   mean(na.rm = TRUE),
+   'No Surr' = mapply(function(y, lower, upper)lower <= y & upper >= y, 
+       y = (df_rst_woS%>%filter(D==1))$tau, 
+       lower = (df_rst_woS%>%filter(D==1))$lower.tau,
+       upper = (df_rst_woS%>%filter(D==1))$upper.tau) %>% 
+   mean(na.rm = TRUE)), 
+   Width = c('Surr' = mapply(function(lower, upper)upper - lower, 
+       lower = (df_rst_wS%>%filter(D==1))$lower.tau,
+       upper = (df_rst_wS%>%filter(D==1))$upper.tau) %>% 
+   mean(na.rm = TRUE), 
+   'No Surr' = mapply(function(lower, upper)upper - lower, 
+       lower = (df_rst_woS%>%filter(D==1))$lower.tau,
+       upper = (df_rst_woS%>%filter(D==1))$upper.tau) %>% 
+   mean(na.rm = TRUE))), booktabs = TRUE) %>%
+  kableExtra::kable_styling(font_size = 10)
+```
+
