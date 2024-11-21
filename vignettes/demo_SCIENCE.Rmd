@@ -32,6 +32,7 @@ df <- genData.conformal(seed = seed, N = N,
                         outcome.type = 'Continuous',
                         beta.S = 10)
 # create two folds (75% for training and 25% for evaluation)
+set.seed(seed)
 train.idx <- caret::createDataPartition(1:nrow(df), p = 0.75)$Resample1
 eval.idx <- setdiff(1:nrow(df), train.idx)
 # SCIENCE framework
@@ -60,6 +61,7 @@ df <- genData.conformal(seed = seed, N = N,
                         outcome.type = 'Categorical',
                         beta.S = 10)
 # create two folds (75% for training and 25% for evaluation)
+set.seed(seed)
 train.idx <- caret::createDataPartition(1:nrow(df), p = 0.75)$Resample1
 eval.idx <- setdiff(1:nrow(df), train.idx)
 # SCIENCE framework
