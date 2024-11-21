@@ -22,7 +22,7 @@ An R package for Surrogate-assisted Conformal Inference for Efficient Individual
 
 ## Installation
 
-To access the vignette, you can install the development version of SurrConformalDR from [GitHub](https://github.com/) with:
+To implement the method and access the vignette, you can install the development version of SurrConformalDR from [GitHub](https://github.com/) with:
 
 ```{r eval=FALSE}
 install.packages("devtools")

@@ -11,8 +11,9 @@ Individual Causal Effect Estimation
 
 ## Installation
 
-To access the vignette, you can install the development version of
-SurrConformalDR from [GitHub](https://github.com/) with:
+To implement the method and access the vignette, you can install the
+development version of SurrConformalDR from
+[GitHub](https://github.com/) with:
 
 ``` r
 install.packages("devtools")
@@ -39,13 +40,13 @@ df <- genData.conformal(seed = seed, N = N,
                         outcome.type = 'Continuous',
                         beta.S = 10)
 head(df)
-#>   D        X.1       X.2 A       S.1         S.2          Y        tau
-#> 1 1  0.9140278 1.6618960 0  3.667808 -19.6982223  3.0554016  0.3439893
-#> 2 1  2.0287279 1.6637934 0 -8.473835  -0.4330812  3.5517326 -0.3044858
-#> 3 1  1.0240139 0.1187267 0 -2.895742  -6.1990638  1.1624350  2.6715778
-#> 4 1  1.4608617 2.9740439 1  6.130101   3.8535435  5.7884840  2.7269300
-#> 5 1  0.6504144 1.2618083 0  2.123511  -1.1487733 -0.1215526  3.6591536
-#> 6 1 -0.1430252 0.9640842 0 -9.107182  -0.5233964  0.5017106  1.2408225
+#>   D         X.1         X.2 A       S.1        S.2          Y       tau
+#> 1 1  0.69270129  0.22106718 1  2.652121 -13.945063  0.1100479 -1.684839
+#> 2 1 -0.25693360  2.38729869 0 10.704680   1.106399 -0.4942529  3.920490
+#> 3 1  1.55944440  0.80973097 1 -7.846135   5.738938  3.3390603 -0.598128
+#> 4 1  1.85601245 -0.45858866 0 -7.253635  -2.836619 -0.2017726  3.326415
+#> 5 1 -0.06525964  0.05591135 1  9.264676   9.291850  2.9695520  3.605217
+#> 6 1  1.04611286  0.01006772 1 17.103869 -21.675263  1.9479473  2.052303
 ```
 
 ``` r
