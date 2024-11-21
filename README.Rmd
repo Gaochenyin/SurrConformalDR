@@ -28,6 +28,7 @@ To access the vignette, you can install the development version of SurrConformal
 install.packages("devtools")
 devtools::install_github("Gaochenyin/SurrConformalDR",
                          build_vignettes = TRUE)
+browseVignettes('SurrCOnformalDR')
 ```
 
 ## Example
