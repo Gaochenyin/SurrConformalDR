@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils_conformal.R
 \name{genData.conformal}
 \alias{genData.conformal}
-\title{Generate data for ReadMe example}
+\title{Generate data for ReadMe continuous example}
 \usage{
 genData.conformal(
   seed,
@@ -13,5 +13,5 @@ genData.conformal(
 )
 }
 \description{
-Generate data for ReadMe example
+Generate data for ReadMe continuous example
 }

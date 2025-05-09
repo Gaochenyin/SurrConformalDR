@@ -505,7 +505,7 @@ conformalIntSplitD0 <- function(df.D1,
   CI.D0
 }
 
-#' Generate data for ReadMe example
+#' Generate data for ReadMe continuous example
 #'
 #' @export
 genData.conformal <- function(seed, N,
@@ -671,4 +671,199 @@ genData.conformal <- function(seed, N,
 
 expit <- function(x) {
   exp(x) / (1 + exp(x))
+}
+
+#' Generate data for ReadMe categorical example with protected groups
+#'
+#' @export
+genData.clustered.conformal <- function(seed, N,
+                              numgroup = 10,
+                              numcluster = 5,
+                              outcome.type = c('Continuous', 'Categorical'),
+                              beta.S = 10,
+                              alpha.r = 9/10){
+  outcome.type <- match.arg(outcome.type)
+  # generate X
+  X <- cbind(rnorm(N, mean = 1),
+             rnorm(N, mean = 1))
+  # generate group indicator
+  # alpha0.R.opt <- rootSolve::multiroot(f = function(alpha0.R){
+  #   prob_R <- cbind(exp(X%*%c(-1/2, -1/2)),
+  #                   exp(alpha0.R[1]+X%*%c(-1, -1/2)),
+  #                   exp(alpha0.R[2]+X%*%c(-1/2, -1)),
+  #                   exp(alpha0.R[3]+X%*%c(-1, -1/2)),
+  #                   exp(alpha0.R[4]+X%*%c(-1, -1/2)),
+  #                   exp(alpha0.R[5]+X%*%c(-1, -1/2)))
+  #   apply(prob_R/apply(prob_R, 1, sum), 2, mean)[c(1:5)] -
+  #     c(0.3, 0.2, 0.15, 0.15, 0.1)
+  # }, start = c(0, 0, 0, 0, 0),
+  # maxiter = 100)$root
+  #
+  # prob_R <- cbind(exp(X%*%c(-1/2, -1/2)),
+  #                 exp(alpha0.R.opt[1]+X%*%c(-1, -1/2)),
+  #                 exp(alpha0.R.opt[2]+X%*%c(-1/2, -1)),
+  #                 exp(alpha0.R.opt[3]+X%*%c(-1, -1/2)),
+  #                 exp(alpha0.R.opt[4]+X%*%c(-1, -1/2)),
+  #                 exp(alpha0.R.opt[5]+X%*%c(-1, -1/2)))
+  # R <- apply(prob_R, 1, function(x)sample(1:6, size = 1,
+  #                                         prob = x))
+
+  # alpha0.R.opt <- rootSolve::multiroot(f = function(alpha0.R){
+  #   prob_R <- cbind(exp(X%*%c(-1/2, -1/2)),
+  #                   exp(alpha0.R[1]+X%*%c(-1, -1/2)),
+  #                   exp(alpha0.R[2]+X%*%c(-1/2, -1)))
+  #   apply(prob_R/apply(prob_R, 1, sum), 2, mean)[c(1:2)] -
+  #     c(0.3, 0.3)
+  # }, start = c(0, 0),
+  # maxiter = 100)$root
+  #
+  # prob_R <- cbind(exp(X%*%c(-1/2, -1/2)),
+  #                 exp(alpha0.R.opt[1]+X%*%c(-1, -1/2)),
+  #                 exp(alpha0.R.opt[2]+X%*%c(-1/2, -1)))
+  # R <- apply(prob_R, 1, function(x)sample(1:3, size = 1,
+  #                                         prob = x))
+  R <- sample(1:numgroup, size = N, replace = TRUE)
+  R.effect <- cut(R, numcluster) %>% as.numeric()
+  # with proportion 0.6, 0.3, 0.1
+  # generate D
+  n_idx <- sample(1:N, size = N^(alpha.r))
+  m_idx <- setdiff(1:N, n_idx)
+  n <- length(n_idx); m <- length(m_idx)
+
+  # generate A
+  alpha0.opt <- uniroot(function(alpha0){
+    mean(expit(alpha0 + X%*%c(-1/2, -1/2) + R)) - 1/2
+  }, interval = c(-50, 50))$root
+  A <- rbinom(N, size = 1, prob = 0.5)
+  # A <- rbinom(N, size = 1,
+  #             prob = 0.3)
+  # generate S
+  if(beta.S == 0){
+    S0 <- cbind(rep(0, N),rep(0, N))
+    S1 <- cbind(rep(0, N),rep(0, N))
+  }else{
+    S0 <- cbind(rnorm(N, mean = -1, sd = beta.S),
+                rnorm(N, mean = -1, sd = beta.S))
+    S1 <- cbind(rnorm(N, mean = 1, sd = beta.S),
+                rnorm(N, mean = 1, sd = beta.S))
+  }
+
+  if(outcome.type == 'Continuous'){
+    # generate Y (by Gaussian)
+    Y0 <- -1 +
+      -1/2 * apply(S0, 1, sum) / 5 + 3 * R +
+      X%*%c(1, 1) + rnorm(N)
+    Y1 <- 1 +
+      1/2 * apply(S1, 1, sum) / 5 + 3 * R +
+      X%*%c(1, 1) + rnorm(N)
+
+  }
+
+  if(outcome.type == 'Categorical'){
+    # generate discrete outcomes
+    alpha0.Y.opt <- rootSolve::multiroot(f = function(alpha0.Y){
+      # with prob (0.3, 0.3, 0.2, 0.15, 0.05)
+      prob_Y <- cbind(1,
+                      exp(alpha0.Y[1]+X%*%c(-1, -1)*R.effect/numcluster -1/2 * apply(S0, 1, sum)),
+                      exp(alpha0.Y[2]+X%*%c(-1, 1)*R.effect/numcluster +1/2 * apply(S0, 1, sum)),
+                      exp(alpha0.Y[3]+X%*%c(1, -1)*R.effect/numcluster -1/2 * apply(S0, 1, sum)),
+                      exp(alpha0.Y[4]+X%*%c(1, 1)*R.effect/numcluster +1/2 * apply(S0, 1, sum))
+      )
+      apply(prob_Y/apply(prob_Y, 1, sum), 2, mean)[c(-1)] -
+        c(0.3, 0.2, 0.15, 0.1)
+    }, start = c(0, 0, 0, 0),
+    maxiter = 100)$root
+
+    alpha1.Y.opt <- rootSolve::multiroot(f = function(alpha1.Y){
+      # with prob (0.1, 0.2, 0.4, 0.15, 0.15)
+      prob_Y <- cbind(1,
+                      exp(alpha1.Y[1]+X%*%c(-1, -1)*R.effect/numcluster -1/2 * apply(S1, 1, sum)),
+                      exp(alpha1.Y[2]+X%*%c(-1, 1)*R.effect/numcluster +1/2 * apply(S1, 1, sum)),
+                      exp(alpha1.Y[3]+X%*%c(1, -1)*R.effect/numcluster -1/2 * apply(S1, 1, sum)),
+                      exp(alpha1.Y[4]+X%*%c(1, 1)*R.effect/numcluster +1/2 * apply(S1, 1, sum))
+      )
+      apply(prob_Y/apply(prob_Y, 1, sum), 2, mean)[c(-1)] -
+        c(0.2, 0.3, 0.15, 0.15)
+    }, start = c(0, 0, 0, 0),
+    maxiter = 100)$root
+
+
+    Y0 <- apply(cbind(1,
+                      exp(alpha0.Y.opt[1]+X%*%c(-1, -1)*R.effect/numcluster -1/2 * apply(S0, 1, sum)),
+                      exp(alpha0.Y.opt[2]+X%*%c(-1, 1)*R.effect/numcluster +1/2 * apply(S0, 1, sum)),
+                      exp(alpha0.Y.opt[3]+X%*%c(1, -1)*R.effect/numcluster -1/2 * apply(S0, 1, sum)),
+                      exp(alpha0.Y.opt[4]+X%*%c(1, 1)*R.effect/numcluster +1/2 * apply(S0, 1, sum))),
+                1, function(x)sample(1:5, size = 1,
+                                     prob = x))
+
+    Y1 <- apply(cbind(1,
+                      exp(alpha1.Y.opt[1]+X%*%c(-1, -1)*R.effect/numcluster -1/2 * apply(S1, 1, sum)),
+                      exp(alpha1.Y.opt[2]+X%*%c(-1, 1)*R.effect/numcluster +1/2 * apply(S1, 1, sum)),
+                      exp(alpha1.Y.opt[3]+X%*%c(1, -1)*R.effect/numcluster -1/2 * apply(S1, 1, sum)),
+                      exp(alpha1.Y.opt[4]+X%*%c(1, 1)*R.effect/numcluster +1/2 * apply(S1, 1, sum))),
+                1, function(x)sample(1:5, size = 1,
+                                     prob = x))
+
+  }
+  # df_source and df_target
+  ## setting 2
+  df_source <- data.frame(X = X[n_idx, ],
+                          R = R[n_idx],
+                          A = A[n_idx],
+                          S = (S1 * A)[n_idx, ] +
+                            (S0 * (1 - A))[n_idx, ],
+                          Y1 = Y1[n_idx],
+                          Y0 = Y0[n_idx],
+                          Y = (Y1 * A)[n_idx] +
+                            (Y0 * (1 - A))[n_idx])
+  df_target <- data.frame(X = X[m_idx, ],
+                          A = A[m_idx],
+                          R = R[m_idx],
+                          # S = cbind(rep(NA, m),
+                          #           rep(NA, m)),
+                          S = (S1 * A)[m_idx, ] +
+                            (S0 * (1 - A))[m_idx, ],
+                          Y1 = Y1[m_idx],
+                          Y0 = Y0[m_idx],
+                          # Y = NA
+                          Y = (Y1 * A)[m_idx] +
+                            (Y0 * (1 - A))[m_idx]
+  )
+
+  if(outcome.type == 'Continuous'){
+    tauITE <- (Y1 - Y0)[c(n_idx, m_idx)]
+
+    df <- cbind(rbind(cbind(D = 1, df_source),
+                      cbind(D = 0, df_target)),
+                tau = tauITE)}
+
+  if(outcome.type == 'Categorical'){
+    df <- cbind(rbind(cbind(D = 1, df_source),
+                      cbind(D = 0, df_target)))
+  }
+
+  return(df)
+}
+
+#' Compute the metrics to evaluation the efficiency and fairness
+#'
+#' @export
+get.metric <- function(rst){
+  cp.R <- by(rst, list(group = rst$R), function(df_R){
+    mapply(function(y, set)!is.na(match(y, set)),
+           y = df_R$Y,
+           set = df_R$sets_observed) %>%
+      mean(na.rm = TRUE)
+  }) %>% array2DF()
+
+  wl.R <- by(rst, list(group = rst$R), function(df_R){
+    sapply(df_R$sets_observed, length) %>%
+      mean()
+  }) %>% array2DF()
+
+  cp.R <- cp.R$Value; wl.R <- wl.R$Value
+
+  c(CovGap = 100 * mean(abs(cp.R - (1 - 0.05)),
+                        na.rm = TRUE),
+    AvgSize = mean(wl.R, na.rm = TRUE))
 }
