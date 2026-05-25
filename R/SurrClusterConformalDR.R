@@ -354,6 +354,30 @@ SurrClusterConformalDR <- function(df,
     SL.library = SL.library,
     family = binomial()
   )
+
+  # model.obj.wS$mA1.obj.r <- SuperLearner(
+  #   Y = as.numeric(df.train2$R.wS <= thetaA1.init)[df.train2$D == 1],
+  #   X = df.train2[df.train2$D == 1, grep("^([X])",
+  #                                        colnames(df.train2),
+  #                                        value = TRUE
+  #   ),
+  #   drop = FALSE
+  #   ],
+  #   SL.library = SL.library,
+  #   family = binomial()
+  # )
+  #
+  # model.obj.wS$mA0.obj.r <- SuperLearner(
+  #   Y = as.numeric(df.train2$R.wS <= thetaA0.init)[df.train2$D == 1],
+  #   X = df.train2[df.train2$D == 1, grep("^([X])",
+  #                                        colnames(df.train2),
+  #                                        value = TRUE
+  #   ),
+  #   drop = FALSE
+  #   ],
+  #   SL.library = SL.library,
+  #   family = binomial()
+  # )
   # the class label for the evaluation data
   df.eval <- df.eval %>%
     mutate(class = factor(R) %>% as.numeric())
